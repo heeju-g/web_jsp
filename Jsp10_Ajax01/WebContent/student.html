@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script type="text/javascript">
+	function getParameterValues(){
+		var name= encodeURIComponent($("#name").val());
+		var kor =$("#kor").val();
+		var eng =$("#eng").val();
+		var math =$("#math").val();
+		return "?name=" +name+ "&kor=" +kor+ "&eng=" +eng+ "&math=" +math;
+	//name, kor, eng, math 받아서 쿼리스트링으로 리턴한다.	
+	}
+	
+	$(function(){
+		$("#process").click(function(){
+			var queryString = getParameterValues();
+			alert(queryString);
+			$.ajax({
+				url : "score.do"+queryString,
+				//어떤 데이터가 스트링으로 반환될건데 걔 json객체로 바꿔서 올거야
+				dataType: "json",
+				success:function(msg){
+					console.log(msg);
+					//json객체(msg) 가져오면서 ~.value로 가져온 거 (msg.name)
+					$("#result").html(decodeURIComponent(msg.name) + "<br>총점:" +msg.sum+"<br>평균:" +msg.avg);
+				},
+				error:function(){
+					alert("통신 실패");
+				}
+			});
+			
+		});
+		
+	});
+	
+</script>
+</head>
+<body>
+
+	<h1>성적 처리 프로그램</h1>
+
+	이름 : <input type="text" id="name"/><br>
+	국어 : <input type="text" id="kor"/><br>
+	영어 : <input type="text" id="eng"/><br>
+	수학 : <input type="text" id="math"/><br>
+	<input type="button" id="process" value="성적 처리" /><br>
+	<br>
+	<div id="result" ></div>
+	
+	
+</body>
+</html>

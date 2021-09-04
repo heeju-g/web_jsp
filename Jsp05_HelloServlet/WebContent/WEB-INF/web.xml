@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+  <display-name>Jsp05_HelloServlet</display-name>
+  <welcome-file-list>
+  <!-- 프로젝트 시작할 때 가장 먼저 보일 파일 -->
+    <welcome-file>home.html</welcome-file>
+   
+  </welcome-file-list>
+  
+  <context-param>
+  <!-- context 전체에서 쓰일 수 있는 parameter. 모든 servlet에서 -->
+  	<param-name>singer</param-name>
+  	<param-value>성시경</param-value>
+  </context-param>
+  
+  <servlet>
+  
+  	<servlet-name>hello</servlet-name>
+  	<!--HelloServlet hello = new HelloServlet();로 생각하면 된다 -->
+  	<servlet-class>com.hello.controller.HelloServlet</servlet-class>
+  	<init-param>
+  	<!-- 해당 servlet 내에서만 사용되는 변수 -->
+  		<param-name>actor</param-name>
+  		<param-value>한지민</param-value>
+  	</init-param>
+  	<!-- 서버가 시작되면서 몇번째로 시작할 건지 -->
+  	 <load-on-startup>1</load-on-startup> 
+  	
+  </servlet>
+  
+   <servlet-mapping>
+   <!-- 클라언트가 서버에 요청. 서버는 어떤 서블릿에게 이 요청을 연결해줄건지. hello.do라고 요청되면 hello란 이름으로 만든 서블릿에 연결해죠-->
+  	 	<servlet-name>hello</servlet-name>
+  	 	<url-pattern>/hello.do</url-pattern>
+   </servlet-mapping>
+  
+</web-app>
